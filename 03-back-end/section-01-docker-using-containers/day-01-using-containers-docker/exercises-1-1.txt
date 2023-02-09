@@ -1,0 +1,15 @@
+Back-End Session 1.1
+
+docker pull:stable-slim (sudo se não for root)
+docker container run -it debian:stable-slim (cria e executa em modo interativo)
+
+cat /etc/*-release (retorna dados distribuição Debian)
+exit (encerra o terminal)
+docker container ls -l (lista o último container criado)
+docker ps -a (lista todos os containers)
+docker container start -i 123 (inicia o mesmo container novamente)
+docker attach 123 (retoma o container criado anteriormente)
+cat /etc/debian_version (retorna a versão atual do sistema do container)
+docker container rm 123 (remove o container)
+ docker run -it --rm andrius/ascii-patrol (cria, roda de modo interativo e remove o jogo no final da execução)
+[ctrl] + [c] (encerra o container)
