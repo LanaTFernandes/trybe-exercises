@@ -1,0 +1,328 @@
+#Exercise 1:
+
+
+
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ pwd
+/home/lana/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose
+
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ docker run -d --name site-trybe -p 4545:80 -v /home/lana/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose:/usr/local/apache2/htdocs httpd:2.4.54
+
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ sudo docker run -d --name site-trybe -p 4545:80 -v /home/lana/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose:/usr/local/apache2/htdocs httpd:2.4.54
+[sudo] senha para lana: 
+Unable to find image 'httpd:2.4.54' locally
+2.4.54: Pulling from library/httpd
+8740c948ffd4: Pull complete 
+70698c657149: Pull complete 
+00df85967755: Pull complete 
+8b82f5d16994: Pull complete 
+f6a4ba6de68a: Pull complete 
+Digest: sha256:ee2117e77c35d3884c33e18398520c8817879b3b15d9faca93652eb3794e8950
+Status: Downloaded newer image for httpd:2.4.54
+4db82d61afa714e9b5748c242cf3534d97d9e9f5efe3f0ff06ad67c302279635
+
+
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ sudo docker ps
+CONTAINER ID   IMAGE                                        COMMAND                  CREATED         STATUS         PORTS                                       NAMES
+4db82d61afa7   httpd:2.4.54                                 "httpd-foreground"       7 minutes ago   Up 7 minutes   0.0.0.0:4545->80/tcp, :::4545->80/tcp       site-trybe
+9787d2be1d4c   day-13_frontend                              "sh -c 'npm start > …"   2 days ago      Up 2 days      0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   day-13-frontend-1
+2cfc0c677e20   day-13_backend                               "npm start"              2 days ago      Up 2 days      0.0.0.0:3001->3001/tcp, :::3001->3001/tcp   day-13-backend-1
+4815f516d859   betrybe/docker-compose-example-database:v1   "docker-entrypoint.s…"   2 days ago      Up 2 days      27017/tcp                                   day-13-database-1
+
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ sudo docker inspect 4db82d61afa7
+[
+    {
+        "Id": "4db82d61afa714e9b5748c242cf3534d97d9e9f5efe3f0ff06ad67c302279635",
+        "Created": "2023-02-13T14:38:07.832391399Z",
+        "Path": "httpd-foreground",
+        "Args": [],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 189101,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2023-02-13T14:38:08.246587247Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:463980270363bdb8ca432771641963f02a2bc44738b86cf3acef0ad11b2ff6ce",
+        "ResolvConfPath": "/var/lib/docker/containers/4db82d61afa714e9b5748c242cf3534d97d9e9f5efe3f0ff06ad67c302279635/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/4db82d61afa714e9b5748c242cf3534d97d9e9f5efe3f0ff06ad67c302279635/hostname",
+        "HostsPath": "/var/lib/docker/containers/4db82d61afa714e9b5748c242cf3534d97d9e9f5efe3f0ff06ad67c302279635/hosts",
+        "LogPath": "/var/lib/docker/containers/4db82d61afa714e9b5748c242cf3534d97d9e9f5efe3f0ff06ad67c302279635/4db82d61afa714e9b5748c242cf3534d97d9e9f5efe3f0ff06ad67c302279635-json.log",
+        "Name": "/site-trybe",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/home/lana/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose:/usr/local/apache2/htdocs"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {
+                "80/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "4545"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                24,
+                162
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/18bca7e4546289079538ea7e7d6e409e9848198306523fb59ecc16da27f78b5a-init/diff:/var/lib/docker/overlay2/028355b1c3afe36bfc055e5bd914aa923660979587f5cd470007874abd3204ff/diff:/var/lib/docker/overlay2/ed3bd9549f55ca499f890bb5047dcbca7e92b7deb17d4c5025fc006e1ddf30bd/diff:/var/lib/docker/overlay2/85e7e321889bba6e3ddbf55ee4ef935c450138c596b1c1533e342c9c084980da/diff:/var/lib/docker/overlay2/81b6623c8fc7d38f3801b2ceac906ebb60ef32eb4e9bcb86b3eb266f2a2eae92/diff:/var/lib/docker/overlay2/8b6581faa545b6c107d86f47cba025f41faca4cdaf30b1e50f52fcd82e9777cb/diff",
+                "MergedDir": "/var/lib/docker/overlay2/18bca7e4546289079538ea7e7d6e409e9848198306523fb59ecc16da27f78b5a/merged",
+                "UpperDir": "/var/lib/docker/overlay2/18bca7e4546289079538ea7e7d6e409e9848198306523fb59ecc16da27f78b5a/diff",
+                "WorkDir": "/var/lib/docker/overlay2/18bca7e4546289079538ea7e7d6e409e9848198306523fb59ecc16da27f78b5a/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/home/lana/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose",
+                "Destination": "/usr/local/apache2/htdocs",
+                "Mode": "",
+                "RW": true,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "4db82d61afa7",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/apache2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "HTTPD_PREFIX=/usr/local/apache2",
+                "HTTPD_VERSION=2.4.54",
+                "HTTPD_SHA256=eb397feeefccaf254f8d45de3768d9d68e8e73851c49afd5b7176d1ecf80c340",
+                "HTTPD_PATCHES="
+            ],
+            "Cmd": [
+                "httpd-foreground"
+            ],
+            "Image": "httpd:2.4.54",
+            "Volumes": null,
+            "WorkingDir": "/usr/local/apache2",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {},
+            "StopSignal": "SIGWINCH"
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "cbf4b49a6081152f7e9949b6d3ebad70e7d0a74100d45d6080177034ee5cf7bd",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {
+                "80/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "4545"
+                    },
+                    {
+                        "HostIp": "::",
+                        "HostPort": "4545"
+                    }
+                ]
+            },
+            "SandboxKey": "/var/run/docker/netns/cbf4b49a6081",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "975f21f3a4a6d49e82919e044fbed602d144e297c5a6c8079313dab7f4ba7a19",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "02:42:ac:11:00:02",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "7e7ca2bce655e68b4fefdc171b9d6051694fdf1bc2a75c2aa4225359c182142a",
+                    "EndpointID": "975f21f3a4a6d49e82919e044fbed602d144e297c5a6c8079313dab7f4ba7a19",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:11:00:02",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ sudo docker stop 4db
+4db
+
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ sudo docker ps
+CONTAINER ID   IMAGE                                        COMMAND                  CREATED      STATUS      PORTS                                       NAMES
+9787d2be1d4c   day-13_frontend                              "sh -c 'npm start > …"   2 days ago   Up 2 days   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   day-13-frontend-1
+2cfc0c677e20   day-13_backend                               "npm start"              2 days ago   Up 2 days   0.0.0.0:3001->3001/tcp, :::3001->3001/tcp   day-13-backend-1
+4815f516d859   betrybe/docker-compose-example-database:v1   "docker-entrypoint.s…"   2 days ago   Up 2 days   27017/tcp                                   day-13-database-1
+
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ sudo docker ps -a
+CONTAINER ID   IMAGE                                        COMMAND                  CREATED          STATUS                      PORTS                                       NAMES
+4db82d61afa7   httpd:2.4.54                                 "httpd-foreground"       15 minutes ago   Exited (0) 54 seconds ago                                               site-trybe
+9787d2be1d4c   day-13_frontend                              "sh -c 'npm start > …"   2 days ago       Up 2 days                   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   day-13-frontend-1
+2cfc0c677e20   day-13_backend                               "npm start"              2 days ago       Up 2 days                   0.0.0.0:3001->3001/tcp, :::3001->3001/tcp   day-13-backend-1
+4815f516d859   betrybe/docker-compose-example-database:v1   "docker-entrypoint.s…"   2 days ago       Up 2 days                   27017/tcp                                   day-13-database-1
+58dada5ba289   cowsay                                       "/usr/games/cowsay -…"   3 days ago       Exited (0) 3 days ago                                                   loving_dirac
+1cd9288f213e   cowsay                                       "/usr/games/cowsay '…"   3 days ago       Exited (0) 3 days ago                                                   condescending_jepsen
+b7c028f2c096   cowsay                                       "/usr/games/cowsay M…"   3 days ago       Exited (0) 3 days ago                                                   friendly_lichterman
+aa32405ecd7e   cowsay                                       "/usr/games/cowsay '…"   3 days ago       Exited (0) 3 days ago                                                   intelligent_rosalind
+876c16bc9c0d   cowsay                                       "/usr/games/cowsay M…"   3 days ago       Exited (0) 3 days ago                                                   infallible_heisenberg
+5b098e25e38b   cowsay                                       "/usr/games/cowsay -…"   3 days ago       Exited (0) 3 days ago                                                   confident_lamport
+a8c1d66a4814   cowsay                                       "/usr/games/cowsay '…"   3 days ago       Exited (0) 3 days ago                                                   nervous_mcnulty
+7fb1f401d373   cowsay                                       "/usr/games/cowsay M…"   3 days ago       Exited (0) 3 days ago                                                   unruffled_tu
+cd1cae112d99   cowsay                                       "/usr/games/cowsay -…"   3 days ago       Exited (0) 3 days ago                                                   hungry_davinci
+a3c3123bfd57   cowsay                                       "/usr/games/cowsay '…"   3 days ago       Exited (0) 3 days ago                                                   brave_dewdney
+0b7a8d8fd77a   cowsay                                       "/usr/games/cowsay M…"   3 days ago       Exited (0) 3 days ago                                                   brave_wilbur
+3f242acca8a6   cowsay                                       "/usr/games/cowsay -…"   3 days ago       Exited (0) 3 days ago                                                   musing_hellman
+744813c569b5   cowsay                                       "/usr/games/cowsay '…"   3 days ago       Exited (0) 3 days ago                                                   awesome_tu
+66dc87c35438   cowsay                                       "/usr/games/cowsay M…"   3 days ago       Exited (0) 3 days ago                                                   gallant_black
+1cb1f3d03274   cowsay                                       "/usr/games/cowsay -…"   3 days ago       Exited (0) 3 days ago                                                   friendly_antonelli
+
+
+
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ sudo docker rm 4db
+4db
+
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ ls
+missao_trybe.html
+
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ ls -la
+total 12
+drwxrwxr-x 2 lana lana 4096 fev 13 11:19 .
+drwxrwxr-x 5 lana lana 4096 fev 13 11:16 ..
+-rw-rw-r-- 1 lana lana  241 fev 13 11:44 missao_trybe.html
+
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ sudo docker images
+REPOSITORY                                TAG       IMAGE ID       CREATED         SIZE
+httpd                                     2.4.54    463980270363   4 weeks ago     145MB
+betrybe/docker-compose-example-database   v1        d3d034499f1d   4 months ago    438MB
+<none>                                    <none>    f9dd4e50bc7e   9 months ago    371MB
+day-13_frontend                           latest    de62ab1d89f5   9 months ago    371MB
+day-13_backend                            latest    62805fb3541e   16 months ago   133MB
+cowsay                                    latest    2e9bdb353a3b   4 years ago     228MB
+
+lana@lana-linux:~/a-trybe/trybe-exercises/03-back-end/section-01-docker-using-containers/day-03-orchestrating-containers-with-docker-compose$ sudo docker rmi -f 463980270363
+Untagged: httpd:2.4.54
+Untagged: httpd@sha256:ee2117e77c35d3884c33e18398520c8817879b3b15d9faca93652eb3794e8950
+Deleted: sha256:463980270363bdb8ca432771641963f02a2bc44738b86cf3acef0ad11b2ff6ce
+Deleted: sha256:3b20e99e4c2615b040af88cd0ebc8e561a22c8de0cbc53ffe1943ccf73b55221
+Deleted: sha256:acacfd8baafa3aaa5489e10a15274db65541ff9821bc7ccce5b460ec2e16519e
+Deleted: sha256:d70badffc2c173b5781391ad9196ec216db33ac628962a68d6c6e674dbedab5f
+Deleted: sha256:f3f967e53184f3542045e44fb38fc1ec70a31a0dafefb2ec763bf9f704f0e1ce
+Deleted: sha256:67a4178b7d47beb6a1f697a593bd0c6841c67eb0da00f2badefb05fd30671490
+
+
+
